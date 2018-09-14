@@ -10,12 +10,12 @@ def crude_match(str1,str2):
             else:
                 break
 
-def my_bullshit_kmp(str1,str2):
+def kmp(str1,str2):
     i=0
     j=0
     n=len(str1)
     m=len(str2)
-    pnext=get_next(str2)
+    pnext=my_bullshit_get_next(str2)
     while j<n and i<m:
         if i==-1 or str1[j]==str2[i]:
             j=j+1
@@ -27,14 +27,15 @@ def my_bullshit_kmp(str1,str2):
     return False
 
 
-def get_next(strs):
+
+def my_bullshit_get_next(strs):
     total_length=len(strs)
     next_list=[]
     temp=[]
     for i in range(1,total_length+1):
         for j in range(i):
             temp.append(strs[j])
-        next_list.append(get_mutual_value(temp))
+        next_list.append(my_bullshit_get_mutual_value(temp))
         temp=[]
     i=len(next_list)-1
     while i>0:
@@ -47,7 +48,7 @@ def get_next(strs):
 
 
 
-def get_mutual_value(list_strs):
+def my_bullshit_get_mutual_value(list_strs):
     prevs=set()
     rears=set()
     maxs=0
@@ -68,4 +69,4 @@ def get_mutual_value(list_strs):
 strs2="ABCDABD"
 strs1="BBC ABCDAB ABCDABCDABDE"
 
-print(my_bullshit_kmp(strs1,strs2))
+print(kmp(strs1,strs2))
