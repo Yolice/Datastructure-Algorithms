@@ -62,7 +62,19 @@ def my_bullshit_get_mutual_value(list_strs):
             maxs=len(elem)
     return maxs
 
-
+def get_next(p):
+    i,k,m=0,-1,len(p)
+    pnext=[-1]*m
+    while i<m-1:
+        if k==-1 or p[i]==p[k]:
+            i,k=i+1,k+1
+            if p[i]==p[k]:
+                pnext[i]=pnext[k]
+            else:
+                pnext[i]=k
+        else:
+            k=pnext[k]
+    return pnext
 
 
 
