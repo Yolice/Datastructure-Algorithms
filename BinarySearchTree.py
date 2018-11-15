@@ -51,7 +51,38 @@ class BinarySearchTree():
             self.PreTraversal(node.left)
             self.PreTraversal(node.right)
 
+    def FindMin(self,node):
+        if node.left:
+            return self.FindMin(node.left)
+        else:
+            return node
+
+    def FindMax(self,node):
+        if node.right:
+            return self.FindMax(node.right)
+        else:
+            return node
+
+    def DeleteNode(self,node,value):
+        if self.root is None:
+            return
+        if value<node.value:
+            self.DeleteNode(node.left,value)
+        if value>node.value:
+            self.DeleteNode(node.right,value)
+        else:
+            if node.left and node.right:
+                new_node=self.FindMin(node)
+                node.value=new_node.value
+                node.right=self.DeleteNode(node.right,new_node.value)
+            elif node.left is None and node.right is None:
+                node=None
+            elif node.left is None:
+                node=node.right
+            elif node.right is None:
+                node=node.left
+
 a=BinarySearchTree()
 for i in range(10):
-    a.GenerateBST(random.randint(40,60))
-a.PreTraversal(a.get_root())
+    a.GenerateBST(i)
+print(a.FindMin(a.get_root()))
