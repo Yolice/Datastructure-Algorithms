@@ -65,7 +65,7 @@ class DoubleList(List):
             self.head=ListNode(data)
         else:
             new_node=DoubleListNode(data)
-            new_node.next=self.head
+            new_node.next=self.head     
             self.head.rear=new_node
             self.head = new_node
 
@@ -82,17 +82,17 @@ class DoubleList(List):
 
     def Delete(self,data):
         self.heads=self.head
-        if self.heads.data == data:
+        if self.heads.data == data: ##被删元素为表头时候
             self.head=self.head.next
             self.head.rear=None     ##若是头节点，则删除后rear指向None
-        elif self.last_node.data == data:
+        elif self.last_node.data == data:  ##被删元素为表尾时候
             self.last_node.rear.next=None
         else:
             while self.heads and self.heads.next.data != data:
                 self.heads=self.heads.next
             if self.heads:
                 self.heads.next=self.heads.next.next
-                self.heads.next.rear=self.heads
+                self.heads.next.rear=self.heads  ##先修改后指针next后改前指针rear
             else:
                 return False
 
