@@ -1,88 +1,138 @@
 import random
 
-class BinaryTreeNode():
-    def __init__(self,value):
-        self.value=value
+class TreeNode():
+    def __init__(self,data):
+        self.data=data
         self.left=None
         self.right=None
+
+
 
 class BinarySearchTree():
     def __init__(self):
         self.root=None
 
-    def get_root(self):
+
+
+    def InitRoot(self,data):
+        if self.root is None:
+            self.root=TreeNode(data)
+            return self.root
+
+
+
+    def CreateBinarySearchTree(self,data):
+        if self.root is None:
+            self.InitRoot(data)
+        else:
+            self.add(self.root,data)
+
+
+
+    def Get_root(self):
         return self.root
 
-    def GenerateBST(self,value):
-        if self.root is None:
-            self.root=BinaryTreeNode(value)
-        else:
-            self.InsertNode(self.root,value)
 
-    def InsertNode(self,node,value):
-        if value<node.value:
-            if node.left is None:
-                node.left=BinaryTreeNode(value)
+
+    def add(self,root,data):
+        if data < root.data:
+            if root.left:
+                self.add(root.left,data)
             else:
-                self.InsertNode(node.left,value)
-        elif value>node.value:
-            if node.right is None:
-                node.right=BinaryTreeNode(value)
+                children=TreeNode(data)
+                root.left=children
+        elif data > root.data:
+            if root.right:
+                self.add(root.right,data)
             else:
-                self.InsertNode(node.right,value)
+                children=TreeNode(data)
+                root.right=children
 
-    def SearchValue(self,value):
+
+
+    def SearchNode(self,data):
         if self.root is None:
-            return None
+            return False
         else:
-            self.SearchStep()
+            return self.SearchStep(self.root,data)      ##从这行开始，到下面searchstep函数都需要return接力返回结果，递归后的函数如果没有return默认返回None
 
-    def SearchStep(self,node,value):
-        if node.value==value:
-            return node
-        elif value<node.value and node.left is not None:
-            self.SearchStep(node.left,value)
-        elif value>node.value and node.right is not None:
-            self.SearchStep(node.right,value)
 
-    def PreTraversal(self,node):
-        if node is not None:
-            print(node.value)
-            self.PreTraversal(node.left)
-            self.PreTraversal(node.right)
+    def SearchStep(self,root,data):
+        if root.data == data:
+            return root
+        elif data < root.data and root.left is not None:
+            return self.SearchStep(root.left,data)         ##必须要return
+        elif data > root.data and root.right is not None:
+            return self.SearchStep(root.right,data)    ##必须要return
 
-    def FindMin(self,node):
-        if node.left:
-            return self.FindMin(node.left)
+
+
+    def PreTraversal(self,root):
+        if root:
+            print(root.data)
+            self.PreTraversal(root.left)
+            self.PreTraversal(root.right)
+
+
+
+    def MidTraversal(self,root):
+        if root:
+            self.MidTraversal(root.left)
+            print(root.data)
+            self.MidTraversal(root.left)
+
+
+
+    def RearTraversal(self,root):
+        if root:
+            self.RearTraversal(root.left)
+            self.RearTraversal(root.right)
+            print(root.data)
+
+    def FindMaxNode(self,root):
+        if root.right:
+            return self.FindMaxNode(root.right)   ##树是一种递归性质的结构，所以在获取树中的一个节点时候要接力return的值
+        elif root.right is None:
+            return root
+
+
+
+    def FindMinNode(self,root):
+        if root.left:
+            return self.FindMinNode(root.left)
+        elif root.left is None:
+            return root
+
+
+
+    def DeleteTreeNone(self,data):
+        IndexNode=self.SearchNode(data)
+        if IndexNode is None:
+            print("No such tree node")
         else:
-            return node
+            if IndexNode.left and IndexNode.right:
+                replace_node=self.FindMinNode(IndexNode.right)
+                replace_node.left=IndexNode.left
+                replace_node.right=IndexNode.right
+                IndexNode=None
+                replace_node=None
+            elif IndexNode.left is None and IndexNode.right:
+                IndexNode=IndexNode.right
+            elif IndexNode.left and IndexNode.right is None:
+                IndexNode=IndexNode.left
+            else:
+                IndexNode=None
 
-    def FindMax(self,node):
-        if node.right:
-            return self.FindMax(node.right)
-        else:
-            return node
 
-    def DeleteNode(self,node,value):
-        if self.root is None:
-            return
-        if value<node.value:
-            self.DeleteNode(node.left,value)
-        if value>node.value:
-            self.DeleteNode(node.right,value)
-        else:
-            if node.left and node.right:
-                new_node=self.FindMin(node)
-                node.value=new_node.value
-                node.right=self.DeleteNode(node.right,new_node.value)
-            elif node.left is None and node.right is None:
-                node=None
-            elif node.left is None:
-                node=node.right
-            elif node.right is None:
-                node=node.left
+
+
+
 
 a=BinarySearchTree()
+
 for i in range(10):
-    a.GenerateBST(i)
-print(a.FindMin(a.get_root()))
+    a.CreateBinarySearchTree(i)
+
+
+a.DeleteTreeNone(4)
+a.PreTraversal(a.Get_root())
