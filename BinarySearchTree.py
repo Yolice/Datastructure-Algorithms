@@ -82,8 +82,7 @@ class BinarySearchTree():
     def MidTraversal(self,root):
         if root:
             self.MidTraversal(root.left)
-            print(root.data)
-            self.MidTraversal(root.left)
+            self.MidTraversal(root.right)
 
 
 
@@ -182,6 +181,5 @@ a.CreateBinarySearchTree(48)
 a.CreateBinarySearchTree(50)
 
 
-print(a.DeleteTreeNone(36))
 
-a.PreTraversal(a.Get_root())
+a.MidTraversal(a.Get_root())
