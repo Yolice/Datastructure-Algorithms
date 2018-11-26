@@ -116,19 +116,46 @@ class BinarySearchTree():
     def DeleteTreeNone(self,data):
         node=self.SearchNode(data)
         if node:
-            if node.left and node.right and node.data == self.root.data:
+            if node.left and node.right:   ##假如要删除的节点左右子树都存在的情况
                 replace_node=self.FindMinNode(node.right)
                 replace_node.left=node.left
                 replace_node.right=node.right
-                replace_node.parent.left=node.parent   ##如果写replace_node.parent=node.parent 即使replacenode的parent是None，但是parent的left依旧链接replacenode，
-                                                       ##因为二叉树的特性，replace节点一定是父节点的左子树，所以replacenode.parent.left=None即可以切断链接，最后节点由python回收机制回收
-                self.FreeNode(node)
-                self.root=replace_node   ##如果删除是根节点，要把代替的节点赋予给根节点
+                if node.data == self.root.data:            ##要删除的是根节点的情况
+                    replace_node.parent.left=None          ##如果写replace_node.parent=None,那么parent的left依旧链接replacenode，所以要写出parent.left链向目标
+                                                           ##因为二叉树的特性，replace节点一定是父节点的左子树，所以replacenode.parent.left=None即可以切断链接，最后节点由python回收机制回收
+                    self.FreeNode(node)
+                    self.root=replace_node                 ##如果删除是根节点，那么代替节点就是新的根节点
 
-
-
-
-
+                else:                                      ##在删除之前要找到被删除点是左子树或者是右子树
+                    if node.parent.left and node.parent.left.data == node.data:
+                        replace_node.parent.left=None
+                        node.parent.left=replace_node
+                        self.FreeNode(node)
+                    elif node.parent.right and node.parent.right.data == node.data:
+                        replace_node.parent.left=None
+                        node.parent.right=replace_node
+                        self.FreeNode(node)
+            elif node.left and node.right is None:   ##只有单一左子树存在时候
+                if node.parent.left and node.parent.left.data == node.data:   ##判断左子树或者右紫薯
+                    node.parent.left=node.left
+                    self.FreeNode(node)
+                elif node.parent.right and node.parent.right.data == node.data:
+                    node.parent.right=node.left
+                    self.FreeNode(node)
+            elif node.right and node.left is None:
+                if node.parent.left and node.parent.left.data == node.data:
+                    node.parent.left=node.right
+                    self.FreeNode(node)
+                elif node.parent.right and node.parent.right.data == node.data:
+                    node.parent.right=node.right
+                    self.FreeNode(node)
+            elif node.left is None and node.right is None:  ##如果没有左右子树
+                if node.parent.left and node.parent.left.data == node.data:
+                    node.parent.left=None
+                    self.FreeNode(node)
+                elif node.parent.right and node.parent.right.data == node.data:
+                    node.parent.right=None
+                    self.FreeNode(node)
         else:
             return False   ##没有找到节点删除失败
 
@@ -137,17 +164,24 @@ class BinarySearchTree():
 
 a=BinarySearchTree()
 
-a.CreateBinarySearchTree(30)
-a.CreateBinarySearchTree(20)
-a.CreateBinarySearchTree(25)
-a.CreateBinarySearchTree(24)
-a.CreateBinarySearchTree(23)
-a.CreateBinarySearchTree(50)
+a.CreateBinarySearchTree(62)
+a.CreateBinarySearchTree(58)
+a.CreateBinarySearchTree(88)
+a.CreateBinarySearchTree(47)
+a.CreateBinarySearchTree(73)
+a.CreateBinarySearchTree(99)
 a.CreateBinarySearchTree(35)
+a.CreateBinarySearchTree(51)
+a.CreateBinarySearchTree(93)
+a.CreateBinarySearchTree(29)
+a.CreateBinarySearchTree(37)
+a.CreateBinarySearchTree(49)
+a.CreateBinarySearchTree(56)
+a.CreateBinarySearchTree(36)
+a.CreateBinarySearchTree(48)
 a.CreateBinarySearchTree(50)
-a.CreateBinarySearchTree(60)
-a.CreateBinarySearchTree(70)
 
-a.DeleteTreeNone(30)
+
+print(a.DeleteTreeNone(36))
 
 a.PreTraversal(a.Get_root())
