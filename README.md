@@ -1,3 +1,3 @@
-# meanless-datastructures-algorithms
+#数据结构与算法学习中
 
-学习数据结构与算法中
+Python实现数据结构与算法，因为都是自己实现的代码，代码会比较蠢。
