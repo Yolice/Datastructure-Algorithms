@@ -112,7 +112,7 @@ class BinarySearchTree():
             return root
 
 
-    def DeleteTreeNone(self,data):
+    def DeleteTreeNone(self,data):  ##作为一种简单的方法，可以交换被删除节点的值和代替节点的值，然后删除代替节点
         node=self.SearchNode(data)
         if node:
             if node.left and node.right:   ##假如要删除的节点左右子树都存在的情况
