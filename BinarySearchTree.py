@@ -11,7 +11,8 @@ class TreeNode():
 class BinarySearchTree():
     def __init__(self):
         self.root=None
-
+        self.count=1
+        self.height=0
 
 
     def InitRoot(self,data):
@@ -81,6 +82,7 @@ class BinarySearchTree():
 
     def MidTraversal(self,root):
         if root:
+            print(root.data)
             self.MidTraversal(root.left)
             self.MidTraversal(root.right)
 
@@ -92,11 +94,36 @@ class BinarySearchTree():
             self.RearTraversal(root.right)
             print(root.data)
 
+
+    def Get_node_balancefator(self,root,count):
+        if root:     ##一切建立在这个节点是存在的情况下
+            leftheight=self.PrintHeight(root.left,count)
+            self.height=0
+            rightheight=self.PrintHeight(root.right,count)
+            if leftheight is None and rightheight is None:
+                return 0
+            elif leftheight is None and rightheight:
+                leftheight=0
+            elif rightheight is None and leftheight:
+                rightheight=0
+            return leftheight-rightheight
+
+
+    def PrintHeight(self,root,count):   ##函数在递归回归到前一个函数的的时候，当前保存的count值正好对应当前高度值。
+        if root:
+            if count > self.height:
+                self.height=count
+            self.PrintHeight(root.left,count+1)
+            self.PrintHeight(root.right,count+1)
+            return self.height        ##这里没有在递归函数上写return是因为不用接力回归的值，此时函数执行到最后必有一个return不像之前查值时候用if分割了3总情况
+
+
     def FindMaxNode(self,root):
         if root.right:
             return self.FindMaxNode(root.right)   ##树是一种递归性质的结构，所以在获取树中的一个节点时候要接力return的值
         elif root.right is None:
             return root
+
 
     def FreeNode(self,node):
         node.left=None
@@ -112,7 +139,7 @@ class BinarySearchTree():
             return root
 
 
-    def DeleteTreeNone(self,data):  ##作为一种简单的方法，可以交换被删除节点的值和代替节点的值，然后删除代替节点
+    def DeleteTreeNone(self,data):   ##作为一种简单的方法，可以交换被删除节点的值和代替节点的值，然后删除代替节点
         node=self.SearchNode(data)
         if node:
             if node.left and node.right:   ##假如要删除的节点左右子树都存在的情况
@@ -123,7 +150,7 @@ class BinarySearchTree():
                     replace_node.parent.left=None          ##如果写replace_node.parent=None,那么parent的left依旧链接replacenode，所以要写出parent.left链向目标
                                                            ##因为二叉树的特性，replace节点一定是父节点的左子树，所以replacenode.parent.left=None即可以切断链接，最后节点由python回收机制回收
                     self.FreeNode(node)
-                    self.root=replace_node                 ##如果删除是根节点，那么代替节点就是新的根节点
+                    self.root=replace_node                 ##如果删除是根节点，那么代替节点就是新的根节点00
 
                 else:                                      ##在删除之前要找到被删除点是左子树或者是右子树
                     if node.parent.left and node.parent.left.data == node.data:
@@ -182,4 +209,4 @@ a.CreateBinarySearchTree(50)
 
 
 
-a.MidTraversal(a.Get_root())
+print(a.Get_node_balancefator(a.SearchNode(51),a.count))
