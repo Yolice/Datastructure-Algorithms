@@ -14,6 +14,7 @@ class Self_Balance_BST:
         self.balance_fator=[1,0,-1]
         self.count=1
         self.height=0
+        self.critial_node=[]
 
 
     def Get_root(self):
@@ -35,7 +36,7 @@ class Self_Balance_BST:
                 children=TreeNode(data)
                 children.parent=root
                 root.left=children
-
+                self.Rotation()
         elif data > root.data:
             if root.right:
                 self.add_node(root.right,data)
@@ -43,13 +44,75 @@ class Self_Balance_BST:
                 children=TreeNode(data)
                 children.parent=root
                 root.right=children
+                self.Rotation()
         else:
             return False
 
 
+
+
+    def Rotation(self):
+        self.CheckBF(self.root)
+        if self.critial_node:
+            inbalance_node = self.critial_node.pop()
+            self.critial_node = []
+            print(inbalance_node.data)
+            if inbalance_node.bf == 2 and inbalance_node.left.bf == 1:
+                self.LL_Rotation(inbalance_node)
+            elif inbalance_node.bf == 2 and inbalance_node.left.bf == -1:
+                self.LR_Rotation(inbalance_node)
+            elif inbalance_node.bf == -2 and inbalance_node.right.bf == 1:
+                self.RL_Rotation(inbalance_node)
+            elif inbalance_node.bf == -2 and inbalance_node.right.bf == -1:
+                self.RR_Rotation(inbalance_node)
+            self.reset_root(inbalance_node)
+
+
+
+    def PreTraversal(self,root):
+        if root:
+            print(root.data)
+            self.PreTraversal(root.left)
+            self.PreTraversal(root.right)
+
+
+
+
+    def LL_Rotation(self,node):    ##当失衡节点bf为2且其左子树bf为1时用LL旋转
+        inbalance_left_node=node.left
+        node.left=inbalance_left_node.right
+        inbalance_left_node.right=node
+        inbalance_left_node.parent=node.parent
+        node.parent=inbalance_left_node
+
+    def RR_Rotation(self,node):  ##当失衡节点bf为-2且其右子树bf为-1时候RR旋转
+        inbalance_right_node=node.right
+        node.right=inbalance_right_node.left
+        inbalance_right_node.left=node
+        inbalance_right_node.parent=node.parent
+        node.parent=inbalance_right_node
+
+
+    def RL_Rotation(self,node): ##当失衡节点bf为-2且其右子树bf为1时候RL旋转
+        inbalance_right_node=node.right
+        self.LL_Rotation(inbalance_right_node)
+        self.RR_Rotation(node)
+
+
+    def LR_Rotation(self,node): ##当失衡节点为2且左子树bf为-1时候LR旋转
+        inbalance_left_node=node.left
+        self.RR_Rotation(inbalance_left_node)
+        self.LL_Rotation(node)
+
+
+
+
     def CheckBF(self,root):
         if root:
-            print(self.Get_node_balancefator(root,self.count))
+            bf=self.Get_node_balancefator(root,self.count)
+            root.bf=bf
+            if bf not in self.balance_fator:
+                self.critial_node.append(root)
             self.CheckBF(root.left)
             self.CheckBF(root.right)
 
@@ -95,26 +158,50 @@ class Self_Balance_BST:
             return self.SearchStep(root.right,data)    ##必须要return
 
 
-
+    def reset_root(self,node):
+        if node.parent:
+            self.reset_root(node.parent)
+        else:
+            self.root=node
 
 
 a=Self_Balance_BST()
 
-a.Create_SelfBalanceTree(62)
-a.Create_SelfBalanceTree(58)
-a.Create_SelfBalanceTree(88)
-a.Create_SelfBalanceTree(47)
-a.Create_SelfBalanceTree(73)
-a.Create_SelfBalanceTree(99)
-a.Create_SelfBalanceTree(35)
-a.Create_SelfBalanceTree(51)
-a.Create_SelfBalanceTree(93)
-a.Create_SelfBalanceTree(29)
-a.Create_SelfBalanceTree(37)
-a.Create_SelfBalanceTree(49)
-a.Create_SelfBalanceTree(56)
-a.Create_SelfBalanceTree(36)
-a.Create_SelfBalanceTree(48)
-a.Create_SelfBalanceTree(50)
+'''
+a.Create_SelfBalanceTree(3)
+a.Create_SelfBalanceTree(2)
+a.Create_SelfBalanceTree(1)
+a.Create_SelfBalanceTree(4)
+a.Create_SelfBalanceTree(5)
+a.Create_SelfBalanceTree(6)
+a.Create_SelfBalanceTree(7)
+a.Create_SelfBalanceTree(16)
+a.Create_SelfBalanceTree(15)
+a.Create_SelfBalanceTree(14)
+a.Create_SelfBalanceTree(13)
+a.Create_SelfBalanceTree(12)
+a.Create_SelfBalanceTree(11)
+a.Create_SelfBalanceTree(10)
+a.Create_SelfBalanceTree(8)
+a.Create_SelfBalanceTree(9)
+'''
 
-a.CheckBF(a.Get_root())
+
+a.Create_SelfBalanceTree(3)
+a.Create_SelfBalanceTree(2)
+a.Create_SelfBalanceTree(1)
+a.Create_SelfBalanceTree(4)
+a.Create_SelfBalanceTree(5)
+a.Create_SelfBalanceTree(6)
+#a.Create_SelfBalanceTree(7)
+#a.Create_SelfBalanceTree(16)
+#a.Create_SelfBalanceTree(15)
+#a.Create_SelfBalanceTree(14)
+#a.Create_SelfBalanceTree(13)
+#a.Create_SelfBalanceTree(12)
+#a.Create_SelfBalanceTree(11)
+#a.Create_SelfBalanceTree(10)
+#a.Create_SelfBalanceTree(8)
+#a.Create_SelfBalanceTree(9)
+
+
