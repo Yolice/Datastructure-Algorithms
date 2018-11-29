@@ -53,10 +53,12 @@ class Self_Balance_BST:
 
     def Rotation(self):
         self.CheckBF(self.root)
+        print("-----")
+        print("此时根为"+str(self.root.data))
         if self.critial_node:
             inbalance_node = self.critial_node.pop()
             self.critial_node = []
-            print(inbalance_node.data)
+            print("不平衡因子值为"+str(inbalance_node.data))
             if inbalance_node.bf == 2 and inbalance_node.left.bf == 1:
                 self.LL_Rotation(inbalance_node)
             elif inbalance_node.bf == 2 and inbalance_node.left.bf == -1:
@@ -66,6 +68,8 @@ class Self_Balance_BST:
             elif inbalance_node.bf == -2 and inbalance_node.right.bf == -1:
                 self.RR_Rotation(inbalance_node)
             self.reset_root(inbalance_node)
+            self.CheckBF(self.root)
+            print("旋转后根为"+str(self.root.data))
 
 
 
@@ -111,6 +115,7 @@ class Self_Balance_BST:
         if root:
             bf=self.Get_node_balancefator(root,self.count)
             root.bf=bf
+            print(str(root.data)+" bf is "+str(bf))
             if bf not in self.balance_fator:
                 self.critial_node.append(root)
             self.CheckBF(root.left)
