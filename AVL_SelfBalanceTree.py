@@ -89,20 +89,36 @@ class Self_Balance_BST:
     def LL_Rotation(self,node):    ##当失衡节点bf为2且其左子树bf为1时用LL旋转
         inbalance_left_node=node.left
         temple_node=inbalance_left_node.right      ##暂时存放要交换的节点
-        node.parent.left=inbalance_left_node
-        inbalance_left_node.parent=node.parent
-        node.parent=inbalance_left_node
+        if node == self.root:
+            node.parent=inbalance_left_node
+            self.root=inbalance_left_node
+            inbalance_left_node.parent=None
+        else:
+            node.parent.left=inbalance_left_node
+            inbalance_left_node.parent=node.parent
+            node.parent=inbalance_left_node
         inbalance_left_node.right=node
         node.left=temple_node
+        if temple_node:
+            temple_node.parent=node
+
+
 
     def RR_Rotation(self,node):  ##当失衡节点bf为-2且其右子树bf为-1时候RR旋转
         inbalance_right_node=node.right
         temple_node=inbalance_right_node.left
-        node.parent.right=inbalance_right_node
-        inbalance_right_node.parent = node.parent
-        node.parent = inbalance_right_node
+        if node == self.root:
+            node.parent=inbalance_right_node
+            self.root=inbalance_right_node
+            inbalance_right_node.parent=None
+        else:
+            node.parent.right=inbalance_right_node
+            inbalance_right_node.parent = node.parent
+            node.parent = inbalance_right_node
         inbalance_right_node.left=node
         node.right=temple_node
+        if temple_node:
+            temple_node.parent=node
 
 
     def RL_Rotation(self,node): ##当失衡节点bf为-2且其右子树bf为1时候RL旋转
@@ -217,5 +233,3 @@ a.Create_SelfBalanceTree(5)
 #a.Create_SelfBalanceTree(10)
 #a.Create_SelfBalanceTree(8)
 #a.Create_SelfBalanceTree(9)
-
-
