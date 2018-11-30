@@ -144,7 +144,7 @@ class Self_Balance_BST:
             print(str(root.data)+" bf is "+str(bf))
             if bf not in self.balance_fator:
                 print("当前我得到了不平衡因子值为" + str(root.data))
-                self.critial_node.append(root)   ##这里有点问题
+                self.critial_node.append(root)
             self.CheckBF(root.left)
             self.CheckBF(root.right)
 
