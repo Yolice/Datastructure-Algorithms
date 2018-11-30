@@ -74,6 +74,8 @@ class Self_Balance_BST:
             self.reset_root(inbalance_node)
             self.CheckBF(self.root)
             print("旋转后根为"+str(self.root.data))
+            print("前序遍历为")
+            self.PreTraversal(self.root)
             print("-----结束")
 
 
@@ -222,7 +224,7 @@ a.Create_SelfBalanceTree(2)
 a.Create_SelfBalanceTree(1)
 a.Create_SelfBalanceTree(4)
 a.Create_SelfBalanceTree(5)
-#a.Create_SelfBalanceTree(6)
+a.Create_SelfBalanceTree(6)
 #a.Create_SelfBalanceTree(7)
 #a.Create_SelfBalanceTree(16)
 #a.Create_SelfBalanceTree(15)
