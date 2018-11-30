@@ -52,13 +52,17 @@ class Self_Balance_BST:
 
 
     def Rotation(self):
+        print("-----开始")
+        self.PreTraversal(self.root)
         self.CheckBF(self.root)
-        print("-----")
         print("此时根为"+str(self.root.data))
+        for i in self.critial_node:
+            print(str(i.data)+"为当前不平衡因子")
         if self.critial_node:
+            print("开始执行旋转")
             inbalance_node = self.critial_node.pop()
             self.critial_node = []
-            print("不平衡因子值为"+str(inbalance_node.data))
+            print("取出的不平衡因子值为"+str(inbalance_node.data))
             if inbalance_node.bf == 2 and inbalance_node.left.bf == 1:
                 self.LL_Rotation(inbalance_node)
             elif inbalance_node.bf == 2 and inbalance_node.left.bf == -1:
@@ -70,7 +74,7 @@ class Self_Balance_BST:
             self.reset_root(inbalance_node)
             self.CheckBF(self.root)
             print("旋转后根为"+str(self.root.data))
-
+            print("-----结束")
 
 
     def PreTraversal(self,root):
@@ -84,17 +88,21 @@ class Self_Balance_BST:
 
     def LL_Rotation(self,node):    ##当失衡节点bf为2且其左子树bf为1时用LL旋转
         inbalance_left_node=node.left
-        node.left=inbalance_left_node.right
-        inbalance_left_node.right=node
+        temple_node=inbalance_left_node.right      ##暂时存放要交换的节点
+        node.parent.left=inbalance_left_node
         inbalance_left_node.parent=node.parent
         node.parent=inbalance_left_node
+        inbalance_left_node.right=node
+        node.left=temple_node
 
     def RR_Rotation(self,node):  ##当失衡节点bf为-2且其右子树bf为-1时候RR旋转
         inbalance_right_node=node.right
-        node.right=inbalance_right_node.left
+        temple_node=inbalance_right_node.left
+        node.parent.right=inbalance_right_node
+        inbalance_right_node.parent = node.parent
+        node.parent = inbalance_right_node
         inbalance_right_node.left=node
-        inbalance_right_node.parent=node.parent
-        node.parent=inbalance_right_node
+        node.right=temple_node
 
 
     def RL_Rotation(self,node): ##当失衡节点bf为-2且其右子树bf为1时候RL旋转
@@ -117,7 +125,8 @@ class Self_Balance_BST:
             root.bf=bf
             print(str(root.data)+" bf is "+str(bf))
             if bf not in self.balance_fator:
-                self.critial_node.append(root)
+                print("当前我得到了不平衡因子值为" + str(root.data))
+                self.critial_node.append(root)   ##这里有点问题
             self.CheckBF(root.left)
             self.CheckBF(root.right)
 
@@ -197,7 +206,7 @@ a.Create_SelfBalanceTree(2)
 a.Create_SelfBalanceTree(1)
 a.Create_SelfBalanceTree(4)
 a.Create_SelfBalanceTree(5)
-a.Create_SelfBalanceTree(6)
+#a.Create_SelfBalanceTree(6)
 #a.Create_SelfBalanceTree(7)
 #a.Create_SelfBalanceTree(16)
 #a.Create_SelfBalanceTree(15)
