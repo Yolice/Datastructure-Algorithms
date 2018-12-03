@@ -65,12 +65,16 @@ class Self_Balance_BST:
             print("取出的不平衡因子值为"+str(inbalance_node.data))
             if inbalance_node.bf == 2 and inbalance_node.left.bf == 1:
                 self.LL_Rotation(inbalance_node)
+                print("a")
             elif inbalance_node.bf == 2 and inbalance_node.left.bf == -1:
                 self.LR_Rotation(inbalance_node)
+                print("b")
             elif inbalance_node.bf == -2 and inbalance_node.right.bf == 1:
                 self.RL_Rotation(inbalance_node)
+                print("c")
             elif inbalance_node.bf == -2 and inbalance_node.right.bf == -1:
                 self.RR_Rotation(inbalance_node)
+                print("d")
             self.reset_root(inbalance_node)
             self.CheckBF(self.root)
             print("旋转后根为"+str(self.root.data))
@@ -89,20 +93,24 @@ class Self_Balance_BST:
 
 
     def LL_Rotation(self,node):    ##当失衡节点bf为2且其左子树bf为1时用LL旋转
-        inbalance_left_node=node.left
-        temple_node=inbalance_left_node.right      ##暂时存放要交换的节点
-        if node == self.root:
-            node.parent=inbalance_left_node
-            self.root=inbalance_left_node
-            inbalance_left_node.parent=None
-        else:
-            node.parent.left=inbalance_left_node
-            inbalance_left_node.parent=node.parent
-            node.parent=inbalance_left_node
-        inbalance_left_node.right=node
-        node.left=temple_node
-        if temple_node:
-            temple_node.parent=node
+        try:
+
+            inbalance_left_node=node.left
+            temple_node=inbalance_left_node.right      ##暂时存放要交换的节点
+            if node == self.root:
+                node.parent=inbalance_left_node
+                self.root=inbalance_left_node
+                inbalance_left_node.parent=None
+            else:
+                node.parent.left=inbalance_left_node
+                inbalance_left_node.parent=node.parent
+                node.parent = inbalance_left_node
+            inbalance_left_node.right=node
+            node.left=temple_node
+            if temple_node:
+                temple_node.parent=node
+        except:
+            pass
 
 
 
@@ -125,13 +133,24 @@ class Self_Balance_BST:
 
     def RL_Rotation(self,node): ##当失衡节点bf为-2且其右子树bf为1时候RL旋转
         inbalance_right_node=node.right
-        self.LL_Rotation(inbalance_right_node)
+        inbalance_right_node_left_child=inbalance_right_node.left
+        temple_node=inbalance_right_node_left_child.right
+        inbalance_right_node.parent.right=inbalance_right_node_left_child
+        inbalance_right_node_left_child.parent=inbalance_right_node.parent
+        inbalance_right_node_left_child.right=inbalance_right_node
+        inbalance_right_node.parent=inbalance_right_node_left_child
+        inbalance_right_node.left=temple_node
         self.RR_Rotation(node)
-
 
     def LR_Rotation(self,node): ##当失衡节点为2且左子树bf为-1时候LR旋转
         inbalance_left_node=node.left
-        self.RR_Rotation(inbalance_left_node)
+        inbalance_left_node_right_child=inbalance_left_node.right
+        temple_node=inbalance_left_node_right_child.left
+        inbalance_left_node.parent.left=inbalance_left_node_right_child
+        inbalance_left_node_right_child.parent=inbalance_left_node.parent
+        inbalance_left_node_right_child.left=inbalance_left_node
+        inbalance_left_node.parent=inbalance_left_node_right_child
+        inbalance_left_node.right=temple_node
         self.LL_Rotation(node)
 
 
@@ -226,13 +245,14 @@ a.Create_SelfBalanceTree(1)
 a.Create_SelfBalanceTree(4)
 a.Create_SelfBalanceTree(5)
 a.Create_SelfBalanceTree(6)
-#a.Create_SelfBalanceTree(7)
-#a.Create_SelfBalanceTree(16)
-#a.Create_SelfBalanceTree(15)
-#a.Create_SelfBalanceTree(14)
-#a.Create_SelfBalanceTree(13)
-#a.Create_SelfBalanceTree(12)
+a.Create_SelfBalanceTree(7)
+a.Create_SelfBalanceTree(16)
+a.Create_SelfBalanceTree(15)
+a.Create_SelfBalanceTree(14)
+a.Create_SelfBalanceTree(13)
+a.Create_SelfBalanceTree(12)
 #a.Create_SelfBalanceTree(11)
 #a.Create_SelfBalanceTree(10)
 #a.Create_SelfBalanceTree(8)
 #a.Create_SelfBalanceTree(9)
+
