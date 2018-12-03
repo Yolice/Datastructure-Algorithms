@@ -156,11 +156,12 @@ class Self_Balance_BST:
             leftheight=self.PrintHeight(root.left,count)
             self.height=0
             rightheight=self.PrintHeight(root.right,count)
+            self.height=0
             if leftheight is None and rightheight is None:
                 return 0
-            elif leftheight is None and rightheight:
+            if leftheight is None and rightheight:
                 leftheight=0
-            elif rightheight is None and leftheight:
+            if rightheight is None and leftheight:
                 rightheight=0
             return leftheight-rightheight
 
