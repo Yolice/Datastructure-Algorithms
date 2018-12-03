@@ -93,24 +93,20 @@ class Self_Balance_BST:
 
 
     def LL_Rotation(self,node):    ##当失衡节点bf为2且其左子树bf为1时用LL旋转
-        try:
-
-            inbalance_left_node=node.left
-            temple_node=inbalance_left_node.right      ##暂时存放要交换的节点
-            if node == self.root:
-                node.parent=inbalance_left_node
-                self.root=inbalance_left_node
-                inbalance_left_node.parent=None
-            else:
-                node.parent.left=inbalance_left_node
-                inbalance_left_node.parent=node.parent
-                node.parent = inbalance_left_node
-            inbalance_left_node.right=node
-            node.left=temple_node
-            if temple_node:
-                temple_node.parent=node
-        except:
-            pass
+        inbalance_left_node=node.left
+        temple_node=inbalance_left_node.right      ##暂时存放要交换的节点
+        if node == self.root:
+            node.parent=inbalance_left_node
+            self.root=inbalance_left_node
+            inbalance_left_node.parent=None
+        else:
+            node.parent.left=inbalance_left_node
+            inbalance_left_node.parent=node.parent
+            node.parent = inbalance_left_node
+        node.left = temple_node
+        inbalance_left_node.right=node
+        if temple_node:
+            temple_node.parent=node
 
 
 
@@ -125,8 +121,8 @@ class Self_Balance_BST:
             node.parent.right=inbalance_right_node
             inbalance_right_node.parent = node.parent
             node.parent = inbalance_right_node
+        node.right = temple_node
         inbalance_right_node.left=node
-        node.right=temple_node
         if temple_node:
             temple_node.parent=node
 
@@ -219,26 +215,11 @@ class Self_Balance_BST:
 
 a=Self_Balance_BST()
 
-'''
-a.Create_SelfBalanceTree(3)
-a.Create_SelfBalanceTree(2)
-a.Create_SelfBalanceTree(1)
-a.Create_SelfBalanceTree(4)
-a.Create_SelfBalanceTree(5)
-a.Create_SelfBalanceTree(6)
-a.Create_SelfBalanceTree(7)
-a.Create_SelfBalanceTree(16)
-a.Create_SelfBalanceTree(15)
-a.Create_SelfBalanceTree(14)
-a.Create_SelfBalanceTree(13)
-a.Create_SelfBalanceTree(12)
-a.Create_SelfBalanceTree(11)
-a.Create_SelfBalanceTree(10)
-a.Create_SelfBalanceTree(8)
-a.Create_SelfBalanceTree(9)
-'''
 
 
+
+
+'''
 a.Create_SelfBalanceTree(3)
 a.Create_SelfBalanceTree(2)
 a.Create_SelfBalanceTree(1)
@@ -255,4 +236,4 @@ a.Create_SelfBalanceTree(12)
 #a.Create_SelfBalanceTree(10)
 #a.Create_SelfBalanceTree(8)
 #a.Create_SelfBalanceTree(9)
-
+'''
