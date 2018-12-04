@@ -120,9 +120,9 @@ class Self_Balance_BST:
                 node.parent.right=inbalance_left_node
             inbalance_left_node.parent=node.parent
             node.parent = inbalance_left_node
-        inbalance_left_node.right=node
+        inbalance_left_node.right=node   ##上下顺序不能颠倒
         node.left = temple_node
-        if temple_node:
+        if temple_node:   ##需要重新定位temple的parent
             temple_node.parent=node
 
 
@@ -190,7 +190,7 @@ class Self_Balance_BST:
 
 
 
-    def Get_node_balancefator(self,root,count):
+    def Get_node_balancefator(self,root,count):   ##当前递归会保存当前层次的高度
         if root:     ##一切建立在这个节点是存在的情况下
             leftheight=self.PrintHeight(root.left,count)
             self.height=0
