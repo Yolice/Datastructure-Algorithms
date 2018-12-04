@@ -52,35 +52,35 @@ class Self_Balance_BST:
 
 
     def Rotation(self):
-        print("-----开始")
-        self.PreTraversal(self.root)
+        #print("-----开始")
+        #self.PreTraversal(self.root)
         self.CheckBF(self.root)
-        print("此时根为"+str(self.root.data))
-        for i in self.critial_node:
-            print(str(i.data)+"为当前不平衡因子")
+        #print("此时根为"+str(self.root.data))
+        #for i in self.critial_node:
+            #print(str(i.data)+"为当前不平衡因子")
         if self.critial_node:
-            print("开始执行旋转")
+            #print("开始执行旋转")
             inbalance_node = self.critial_node.pop()
             self.critial_node = []
-            print("取出的不平衡因子值为"+str(inbalance_node.data))
+            #print("取出的不平衡因子值为"+str(inbalance_node.data))
             if inbalance_node.bf == 2 and inbalance_node.left.bf == 1:
                 self.LL_Rotation(inbalance_node)
-                print("a")
+                #print("a")
             elif inbalance_node.bf == 2 and inbalance_node.left.bf == -1:
                 self.LR_Rotation(inbalance_node)
-                print("b")
+                #print("b")
             elif inbalance_node.bf == -2 and inbalance_node.right.bf == 1:
                 self.RL_Rotation(inbalance_node)
-                print("c")
+                #print("c")
             elif inbalance_node.bf == -2 and inbalance_node.right.bf == -1:
                 self.RR_Rotation(inbalance_node)
-                print("d")
+                #print("d")
             self.reset_root(inbalance_node)
-            self.CheckBF(self.root)
-            print("旋转后根为"+str(self.root.data))
-            print("前序遍历为")
-            self.PreTraversal(self.root)
-            print("-----结束")
+            #self.CheckBF(self.root)
+            #print("旋转后根为"+str(self.root.data))
+            #print("前序遍历为")
+            #self.PreTraversal(self.root)
+            #print("-----结束")
 
 
     def PreTraversal(self,root):
@@ -90,6 +90,20 @@ class Self_Balance_BST:
             self.PreTraversal(root.right)
 
 
+
+    def RearTraversal(self,root):
+        if root:
+            self.RearTraversal(root.left)
+            self.RearTraversal(root.right)
+            print(root.data)
+
+
+
+    def MidTraversal(self,root):
+        if root:
+            self.MidTraversal(root.left)
+            print(root.data)
+            self.MidTraversal(root.right)
 
 
     def LL_Rotation(self,node):    ##当失衡节点bf为2且其左子树bf为1时用LL旋转
@@ -166,9 +180,9 @@ class Self_Balance_BST:
         if root:
             bf=self.Get_node_balancefator(root,self.count)
             root.bf=bf
-            print(str(root.data)+" bf is "+str(bf))
+            #print(str(root.data)+" bf is "+str(bf))
             if bf not in self.balance_fator:
-                print("当前我得到了不平衡因子值为" + str(root.data))
+                #print("当前我得到了不平衡因子值为" + str(root.data))
                 self.critial_node.append(root)
             self.CheckBF(root.left)
             self.CheckBF(root.right)
@@ -242,3 +256,6 @@ a.Create_SelfBalanceTree(11)
 a.Create_SelfBalanceTree(10)
 a.Create_SelfBalanceTree(8)
 a.Create_SelfBalanceTree(9)
+
+
+a.MidTraversal(a.Get_root())
