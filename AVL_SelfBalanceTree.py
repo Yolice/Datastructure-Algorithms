@@ -100,11 +100,14 @@ class Self_Balance_BST:
             self.root=inbalance_left_node
             inbalance_left_node.parent=None
         else:
-            node.parent.left=inbalance_left_node
+            if node.parent.data>node.data:     ##一定要判断是父节点的左或者右儿子
+                node.parent.left=inbalance_left_node
+            else:
+                node.parent.right=inbalance_left_node
             inbalance_left_node.parent=node.parent
             node.parent = inbalance_left_node
-        node.left = temple_node
         inbalance_left_node.right=node
+        node.left = temple_node
         if temple_node:
             temple_node.parent=node
 
@@ -118,11 +121,14 @@ class Self_Balance_BST:
             self.root=inbalance_right_node
             inbalance_right_node.parent=None
         else:
-            node.parent.right=inbalance_right_node
+            if node.parent.data>node.data:
+                node.parent.left=inbalance_right_node
+            else:
+                node.parent.right=inbalance_right_node
             inbalance_right_node.parent = node.parent
             node.parent = inbalance_right_node
-        node.right = temple_node
         inbalance_right_node.left=node
+        node.right = temple_node
         if temple_node:
             temple_node.parent=node
 
@@ -132,10 +138,12 @@ class Self_Balance_BST:
         inbalance_right_node_left_child=inbalance_right_node.left
         temple_node=inbalance_right_node_left_child.right
         inbalance_right_node.parent.right=inbalance_right_node_left_child
-        inbalance_right_node_left_child.parent=inbalance_right_node.parent
+        inbalance_right_node_left_child.parent=node
         inbalance_right_node_left_child.right=inbalance_right_node
         inbalance_right_node.parent=inbalance_right_node_left_child
         inbalance_right_node.left=temple_node
+        if temple_node:
+            temple_node.parent=inbalance_right_node
         self.RR_Rotation(node)
 
     def LR_Rotation(self,node): ##当失衡节点为2且左子树bf为-1时候LR旋转
@@ -147,6 +155,8 @@ class Self_Balance_BST:
         inbalance_left_node_right_child.left=inbalance_left_node
         inbalance_left_node.parent=inbalance_left_node_right_child
         inbalance_left_node.right=temple_node
+        if temple_node:
+            temple_node.parent=inbalance_left_node
         self.LL_Rotation(node)
 
 
@@ -216,10 +226,6 @@ class Self_Balance_BST:
 a=Self_Balance_BST()
 
 
-
-
-
-'''
 a.Create_SelfBalanceTree(3)
 a.Create_SelfBalanceTree(2)
 a.Create_SelfBalanceTree(1)
@@ -232,8 +238,7 @@ a.Create_SelfBalanceTree(15)
 a.Create_SelfBalanceTree(14)
 a.Create_SelfBalanceTree(13)
 a.Create_SelfBalanceTree(12)
-#a.Create_SelfBalanceTree(11)
-#a.Create_SelfBalanceTree(10)
-#a.Create_SelfBalanceTree(8)
-#a.Create_SelfBalanceTree(9)
-'''
+a.Create_SelfBalanceTree(11)
+a.Create_SelfBalanceTree(10)
+a.Create_SelfBalanceTree(8)
+a.Create_SelfBalanceTree(9)
