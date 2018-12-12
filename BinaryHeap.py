@@ -72,7 +72,6 @@ class Heap:  ##大顶堆
         lastnode=int(limit)  ##lastnode是最后都非叶节点
         while lastnode>=1:
             self.ShiftDown(Array,lastnode,limit)  ##lastnode是变量与常量limit区分开来
-            print(Array)
             lastnode=lastnode-1
 
 
