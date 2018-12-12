@@ -7,6 +7,7 @@ class Heap:  ##大顶堆
         list[index_b],list[index_a]=list[index_a],list[index_b]
 
 
+
     def ShiftUp(self,Array,index):
         while index != 1:
             ParentIndex=int(index/2)
@@ -65,20 +66,37 @@ class Heap:  ##大顶堆
 
 
 
+
+    def TransBinaryHeap(self,Array): ##把一个数组变成二叉堆只需要对每一个非叶节点做一次shiftdown就行了
+        lastnode=int((self.Get_Array_Size(Array)-1)/2)  ##lastnode为最后非叶节点
+        limit=lastnode  ##lastnode是变量，要单独获取limit值
+        while lastnode>=1:
+            self.ShiftDown(Array,lastnode,limit)
+            lastnode=lastnode-1
+
+
+
+
+
+
     def ShiftDown(self,Array,index,limit):  ##limit代表最后一个非叶节点的index索引值(最后一个值index/2)，如果超出这个非叶节点则不用继续下沉
         Length=limit*2
         while index <= int(limit):  ##非叶节点才有交换意义
-            if index*2+1 < Length: ##加入左右子节点都存在
+            if index*2+1 <= Length: ##只要他都右值索引值在长度之内，他就是有两个子节点
                 if Array[index*2]>Array[index*2+1] and Array[index*2]>Array[index]: ##左大于右,大顶堆谁大换谁
                     self.swap(Array,index,index*2)
                     index=index*2
                 elif Array[index*2+1]>Array[index*2] and Array[index*2+1]>Array[index]:
                     self.swap(Array,index,index*2+1)
                     index=index*2+1
-            else:  ##非则只存在一个左节点，这是又二叉堆特性决定的，它不会出现只有右子节点的情况
+                else: ##又或者index比他的左右儿子都大时
+                    break
+            else:  ##否则只存在一个左节点，这是又二叉堆特性决定的，它不会出现只有右子节点的情况
                 if Array[index*2]>Array[index]:
                     self.swap(Array,index,index*2)
                     index=index*2
+                else: ##即无法下沉时候退出
+                    break
 
 
 
@@ -93,11 +111,3 @@ class Heap:  ##大顶堆
 
 
 a=Heap()
-a.CreateHeap(5)
-a.CreateHeap(9)
-a.CreateHeap(3)
-a.CreateHeap(7)
-a.CreateHeap(6)
-a.CreateHeap(5)
-
-print(a.Get_Array())
