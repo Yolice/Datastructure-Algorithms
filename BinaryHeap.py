@@ -1,6 +1,6 @@
 class Heap:  ##大顶堆
     def __init__(self):
-        self.HeapArray=['defalut']
+        self.HeapArray=['defalut',2,7,26,25,19,10,1,60,3,36,88]
 
 
     def swap(self,list,index_a,index_b):
@@ -68,10 +68,11 @@ class Heap:  ##大顶堆
 
 
     def TransBinaryHeap(self,Array): ##把一个数组变成二叉堆只需要对每一个非叶节点做一次shiftdown就行了
-        lastnode=int((self.Get_Array_Size(Array)-1)/2)  ##lastnode为最后非叶节点
-        limit=lastnode  ##lastnode是变量，要单独获取limit值
+        limit=(self.Get_Array_Size(Array)-1)/2  ##要保留limit都小数点，用于下沉还原Length
+        lastnode=int(limit)  ##lastnode是最后都非叶节点
         while lastnode>=1:
-            self.ShiftDown(Array,lastnode,limit)
+            self.ShiftDown(Array,lastnode,limit)  ##lastnode是变量与常量limit区分开来
+            print(Array)
             lastnode=lastnode-1
 
 
@@ -80,7 +81,7 @@ class Heap:  ##大顶堆
 
 
     def ShiftDown(self,Array,index,limit):  ##limit代表最后一个非叶节点的index索引值(最后一个值index/2)，如果超出这个非叶节点则不用继续下沉
-        Length=limit*2
+        Length=limit*2  ##limit保有小数点
         while index <= int(limit):  ##非叶节点才有交换意义
             if index*2+1 <= Length: ##只要他都右值索引值在长度之内，他就是有两个子节点
                 if Array[index*2]>Array[index*2+1] and Array[index*2]>Array[index]: ##左大于右,大顶堆谁大换谁
@@ -111,3 +112,4 @@ class Heap:  ##大顶堆
 
 
 a=Heap()
+a.TransBinaryHeap(a.Get_Array())
