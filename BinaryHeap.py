@@ -1,6 +1,6 @@
 class Heap:  ##大顶堆
     def __init__(self):
-        self.HeapArray=['defalut',2,7,26,25,19,10,1,60,3,36,88]
+        self.HeapArray=['defalut']
 
 
     def swap(self,list,index_a,index_b):
@@ -108,7 +108,24 @@ class Heap:  ##大顶堆
 
 
 
-
-
+'''
+self.HeapArray=['defalut',2,7,26,25,19,10,1,60,3,36,88,155]
 a=Heap()
 a.TransBinaryHeap(a.Get_Array())
+a.Push(a.Get_Array(),37)
+a.PopTopElement(a.Get_Array())
+print(a.Get_Array())
+a.CreateHeap(2)
+a.CreateHeap(7)
+a.CreateHeap(26)
+a.CreateHeap(25)
+a.CreateHeap(19)
+a.CreateHeap(17)
+a.CreateHeap(1)
+a.CreateHeap(90)
+a.CreateHeap(3)
+a.CreateHeap(36)
+print(a.Get_Array())
+
+测试全部通过 ！
+'''
