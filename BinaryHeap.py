@@ -1,6 +1,6 @@
 class Heap:  ##大顶堆
     def __init__(self):
-        self.HeapArray=['defalut']
+        self.HeapArray=['defalut',2,7,26,25,19,10,1,60,3,36,88,155]
 
 
     def swap(self,list,index_a,index_b):
@@ -73,6 +73,7 @@ class Heap:  ##大顶堆
         while lastnode>=1:
             self.ShiftDown(Array,lastnode,limit)  ##lastnode是变量与常量limit区分开来
             lastnode=lastnode-1
+        return Array
 
 
 
@@ -100,7 +101,12 @@ class Heap:  ##大顶堆
 
 
 
-
+    def HeapSort(self,Array):
+        sort_list=[]
+        Heap=self.TransBinaryHeap(Array)
+        while self.IsTop():
+            sort_list.append(self.PopTopElement(Heap))
+        return sort_list
 
 
 
@@ -126,6 +132,7 @@ a.CreateHeap(90)
 a.CreateHeap(3)
 a.CreateHeap(36)
 print(a.Get_Array())
-
+print(a.HeapSort(a.Get_Array()))
 测试全部通过 ！
 '''
+
