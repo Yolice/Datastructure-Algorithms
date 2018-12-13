@@ -315,6 +315,7 @@ class Self_Balance_BST:
             self.root=node
 
 
+'''
 a=Self_Balance_BST()
 
 
@@ -335,3 +336,5 @@ a.Create_SelfBalanceTree(10)
 a.Create_SelfBalanceTree(8)
 a.Create_SelfBalanceTree(9)
 
+测试全部通过！
+'''
