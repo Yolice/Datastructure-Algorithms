@@ -4,9 +4,9 @@ import queue
 
 class Graph_Traversal:
     def __init__(self,Vertexs,Edges):
-        self.CheckVertexs=[]  ##初始化为空list，如果访问过了就把顶点index加入这个数组，如果查找时候发现存在就代表已经访问过了
-        self.Vertexs=Vertexs
-        self.Edges=Edges
+        self.CheckVertexs = []  ##初始化为空list，如果访问过了就把顶点index加入这个数组，如果查找时候发现存在就代表已经访问过了
+        self.Vertexs = Vertexs
+        self.Edges = Edges
 
 
 
@@ -26,34 +26,34 @@ class Graph_Traversal:
 
 
     def DepthFirstSearch(self,vertex,AdjacencyMatrix):
-        NeiborhoodNodes=self.FindNeiborhoodNode(vertex,AdjacencyMatrix)
+        NeiborhoodNodes = self.FindNeiborhoodNode(vertex, AdjacencyMatrix)
         print(vertex)  ##这里只是打出顶点的值，具体可以左别的操作
         self.CheckVertexs.append(vertex)
         for node in NeiborhoodNodes:
             if node in self.CheckVertexs:
                 continue
             else:
-                self.DepthFirstSearch(node,AdjacencyMatrix)
-        self.CheckVertexs=[]
+                self.DepthFirstSearch(node, AdjacencyMatrix)
+        self.CheckVertexs = []
 
 
 
 
 
     def BreadthFirstSearch(self,vertex,AdjacencyMatrix):
-        Vertexs_Queue=queue.Queue() ##BFS用队列，DFS用栈或者递归
-        Vertexs_Queue.put(vertex) ##先入队一个顶点
-        while Vertexs_Queue.empty() is False: ##当队列不空时候
-            operate_vertex=Vertexs_Queue.get()
-            NeiborhoodNodes=self.FindNeiborhoodNode(operate_vertex,AdjacencyMatrix) ##直接出队，取得该顶点当相关顶点
+        Vertexs_Queue = queue.Queue()  ##BFS用队列，DFS用栈或者递归
+        Vertexs_Queue.put(vertex)  ##先入队一个顶点
+        while Vertexs_Queue.empty() is False:  ##当队列不空时候
+            operate_vertex = Vertexs_Queue.get()
+            NeiborhoodNodes = self.FindNeiborhoodNode(operate_vertex, AdjacencyMatrix)  ##直接出队，取得该顶点当相关顶点
             for node in NeiborhoodNodes:
                 if node in self.CheckVertexs:  ##如果已经该相关顶点已经被访问过了，那么直接无视continue，关注下一个相关顶点
                     continue
                 else:
-                    Vertexs_Queue.put(node) ##当一个顶点退出时候把他相关的未被访问过的顶点入队
-            print(operate_vertex) ##可以别的抽象的对顶点的操作
-            self.CheckVertexs.append(operate_vertex) ##出队后标记为访问过了
-        self.CheckVertexs=[]  ##退出时候清空下列表内容
+                    Vertexs_Queue.put(node)  ##当一个顶点退出时候把他相关的未被访问过的顶点入队
+            print(operate_vertex)  ##可以别的抽象的对顶点的操作
+            self.CheckVertexs.append(operate_vertex)  ##出队后标记为访问过了
+        self.CheckVertexs = []  ##退出时候清空下列表内容
 
 
 
