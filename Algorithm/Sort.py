@@ -1,7 +1,7 @@
 class Sort:
 
     def __init__(self):
-        self.unsolvelist=[3,44,38,5,47,15,36,26,27,2,46,4,19,50,48]
+        self.unsolvelist=[3,44,38,5,47,15,36,26,27,2,46,4,19,50]
         self.minvalue=None
 
 
@@ -67,10 +67,23 @@ class Sort:
 
 
 
+    def Quick_sort(self,list):
+        pass
+
+
+
+
+    def Merge_sort(self,list):
+        pass
+
+
+
+
+
+
 a=Sort()
 #print(sorted(a.unsolvelist))
 #a.Bubble_sort(a.unsolvelist)
 #a.Selection_sort(a.unsolvelist)
 #a.Insertion_sort(a.unsolvelist)
-
-
+a.Shell_sort(a.unsolvelist)
