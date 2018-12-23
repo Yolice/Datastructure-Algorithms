@@ -2,9 +2,9 @@ import AdjacencyStore
 import pprint
 
 inf=float('inf')
-#Vertexs=[0,1,2,3,4]
+Vertexs=[0,1,2,3,4]
 #Edges={'0->1':4,'0->2':4,'0->3':6,'0->4':6,'1->0':4,'1->2':2,'2->1':2,'2->0':4,'2->3':8,'3->2':8,'3->0':6,'3->4':9,'4->0':6,'4->3':9}
-
+Edges={'0->1':24,'0->2':13,'0->3':13,'0->4':22,'1->0':24,'1->2':22,'1->3':13,'1->4':13,'2->0':13,'2->1':22,'2->3':19,'2->4':14,'3->0':13,'3->1':13,'3->2':19,'3->4':19,'4->0':22,'4->1':13,'4->2':14,'4->3':19}
 AdjacencyMatrix=AdjacencyStore.Graph().Generate_AdjacencyMatrix(Vertexs,Edges)
 for i in range(len(AdjacencyMatrix[0])):
     AdjacencyMatrix[i][i]=inf
@@ -17,6 +17,8 @@ class MinimumSpanningTree:
         self.Visited=[]
         self.inf=float('inf')
         self.MinimumSpanningTree=[]
+
+
 
 
 
@@ -43,11 +45,14 @@ class MinimumSpanningTree:
             else: ##如果这个边被访问过了，那么这次循环重来
                 i=i-1
             i=i+1
+            
         return self.MinimumSpanningTree
 
 
 
 
+    def Kruskal(self):
+        pass
 
 
 
@@ -55,7 +60,14 @@ class MinimumSpanningTree:
 
 
 
+
+
+
+'''
 print(MinimumSpanningTree().Prim(AdjacencyMatrix,Vertexs))
+##结果:[{'0->2': 13}, {'0->3': 13}, {'3->1': 13}, {'1->4': 13}]
+##Prim算法测试通过！
+'''
 
 
 
