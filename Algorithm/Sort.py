@@ -63,14 +63,14 @@ class Sort:
 
     def Shell_sort(self,list):
         gap=int(len(list)/2)
-        while gap >=1:
-            for i in range(gap):
+        while gap >=1: ##总共循环次数
+            for i in range(gap): ##gap等于分组数量，即被分开了gap个数组
                 temp_list=[]
-                for k in range(int(len(list)/gap)):
-                    temp_list.append(list[i+k*gap])
+                for k in range(int(len(list)/gap)): ##gap个数组，总数为legnth，那么每个数组有length/gap个元素
+                    temp_list.append(list[i+k*gap]) ##这里添加length/gap个元素,(i+k*gap,i+2k*gap)i为上层循环控制
                 temp_list=sorted(temp_list)
-                for j in range(len(temp_list)):
-                    list[i+j*gap]=temp_list[j]
+                for j in range(len(temp_list)): ##对于排序好的temp_list数组，把值按照gap大小跨越赋值
+                    list[i+j*gap]=temp_list[j]  ##i控制当前数组顺序，即第一个gap数组，第二个gap数组...etc
             gap=int(gap/2)
 
         print(self.unsolvelist)
