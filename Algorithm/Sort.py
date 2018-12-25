@@ -51,6 +51,7 @@ class Sort:
                         Sorted_list[i-j],Sorted_list[i-j-1]=Sorted_list[i-j-1],Sorted_list[i-j]
 
         self.unsolvelist=Sorted_list
+
         print(Sorted_list)
 
 
@@ -61,8 +62,18 @@ class Sort:
 
 
     def Shell_sort(self,list):
-        pass
+        gap=int(len(list)/2)
+        while gap >=1:
+            for i in range(gap):
+                temp_list=[]
+                for k in range(int(len(list)/gap)):
+                    temp_list.append(list[i+k*gap])
+                temp_list=sorted(temp_list)
+                for j in range(len(temp_list)):
+                    list[i+j*gap]=temp_list[j]
+            gap=int(gap/2)
 
+        print(self.unsolvelist)
 
 
 
@@ -80,10 +91,12 @@ class Sort:
 
 
 
-
 a=Sort()
 #print(sorted(a.unsolvelist))
 #a.Bubble_sort(a.unsolvelist)
 #a.Selection_sort(a.unsolvelist)
 #a.Insertion_sort(a.unsolvelist)
 a.Shell_sort(a.unsolvelist)
+
+
+
