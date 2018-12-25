@@ -17,6 +17,7 @@ class MinimumSpanningTree:
         self.Visited=[]
         self.inf=float('inf')
         self.MinimumSpanningTree=[]
+        self.Vertexs=Vertexs
 
 
 
@@ -45,14 +46,61 @@ class MinimumSpanningTree:
             else: ##如果这个边被访问过了，那么这次循环重来
                 i=i-1
             i=i+1
-            
+
+
         return self.MinimumSpanningTree
 
 
 
 
-    def Kruskal(self):
-        pass
+    def Find(self,value):##找出value在Vertexs数组中的最高顶点
+        value=int(value)
+        while self.Vertexs[value]!=value:
+            value=self.Vertexs[value]
+        return value
+
+
+
+    def Union(self,value_1,value_2):
+        root_1=self.Find(value_1)
+        root_2=self.Find(value_2)
+        Vertexs[root_1]=root_2
+
+
+
+    def IsSameRoot(self,value_1,value_2):
+        root_1=self.Find(value_1)
+        root_2=self.Find(value_2)
+        if root_1==root_2:
+            return True
+        else:
+            return False
+
+
+
+
+
+    def Kruskal(self,Vertexs,Edges):
+        #self.MinimumSpanningTree=[]
+        SortedEdges=sorted(Edges.items(), key=lambda item: item[1])
+        #Vertexs可以看作已经被初始化的并查集
+        for edge in SortedEdges: ##n个顶点只需要n-1个边
+            opera_edge=list(edge)
+            start_vertex=opera_edge[0].split('->')[0]
+            opposite_vertex=opera_edge[0].split('->')[1]
+            Flag=self.IsSameRoot(start_vertex,opposite_vertex)
+            if Flag is True: ##如果是一个祖先，那么这条边就丢弃
+                continue
+            else:##如果不是同一个祖先，那么这条边可选，并且把这两个顶点关联
+                self.Union(start_vertex,opposite_vertex)
+                self.MinimumSpanningTree.append(opera_edge)
+
+        return self.MinimumSpanningTree
+
+
+
+
+
 
 
 
@@ -65,10 +113,9 @@ class MinimumSpanningTree:
 
 '''
 print(MinimumSpanningTree().Prim(AdjacencyMatrix,Vertexs))
+print(MinimumSpanningTree().Kruskal(Vertexs,Edges))
 ##结果:[{'0->2': 13}, {'0->3': 13}, {'3->1': 13}, {'1->4': 13}]
 ##Prim算法测试通过！
+##Kruskal算法测试通过！
 '''
-
-
-
 
