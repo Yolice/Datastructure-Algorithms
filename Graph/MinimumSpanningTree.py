@@ -82,16 +82,16 @@ class MinimumSpanningTree:
 
     def Kruskal(self,Vertexs,Edges):
         #self.MinimumSpanningTree=[]
-        SortedEdges=sorted(Edges.items(), key=lambda item: item[1])
+        SortedEdges=sorted(Edges.items(), key=lambda item: item[1]) ##按权值排序
         #Vertexs可以看作已经被初始化的并查集
         for edge in SortedEdges: ##n个顶点只需要n-1个边
             opera_edge=list(edge)
             start_vertex=opera_edge[0].split('->')[0]
             opposite_vertex=opera_edge[0].split('->')[1]
-            Flag=self.IsSameRoot(start_vertex,opposite_vertex)
+            Flag=self.IsSameRoot(start_vertex,opposite_vertex) ##取权值边对应的两个顶点
             if Flag is True: ##如果是一个祖先，那么这条边就丢弃
                 continue
-            else:##如果不是同一个祖先，那么这条边可选，并且把这两个顶点关联
+            else:##如果不是同一个祖先，那么这条边可选，并且选完后把这两个顶点关联
                 self.Union(start_vertex,opposite_vertex)
                 self.MinimumSpanningTree.append(opera_edge)
 
