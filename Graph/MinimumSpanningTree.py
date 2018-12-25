@@ -84,7 +84,7 @@ class MinimumSpanningTree:
         #self.MinimumSpanningTree=[]
         SortedEdges=sorted(Edges.items(), key=lambda item: item[1]) ##按权值排序
         #Vertexs可以看作已经被初始化的并查集
-        for edge in SortedEdges: ##n个顶点只需要n-1个边
+        for edge in SortedEdges: ##对所有边进行操作
             opera_edge=list(edge)
             start_vertex=opera_edge[0].split('->')[0]
             opposite_vertex=opera_edge[0].split('->')[1]
