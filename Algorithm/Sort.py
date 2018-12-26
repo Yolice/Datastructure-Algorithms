@@ -84,8 +84,41 @@ class Sort:
 
 
 
+
     def Merge_sort(self,list):
-        pass
+        length=len(list)
+        mid=int(length/2)
+        if length == 1:  ##在只有单个元素时候退出递归
+            return list
+        ##下面开始拆分
+        left=self.Merge_sort(list[:mid]) ##将之前合并的数组传入left数组
+        right=self.Merge_sort(list[mid:])
+        ##下面开始合并
+        if left and right:
+            temp=[] ##每一次都要清空temp数组的值
+            length_l=int(len(left)) #介于数组可能分出[1,2] [3]这样一个长度为2一个长度为1，所以要分别找出两个length长度
+            length_r=int(len(right))
+            i,j=0,0
+            while i < length_l and j<length_r:  ##详见onenote归并时候的规则
+                min_value=min(left[i],right[j])
+                if min_value == left[i]:
+                    temp.append(min_value)
+                    i=i+1
+                    if i==length_l:   ##当其中一个数组空后，直接把另一边数组的所有元素加入temp数组
+                        while j<length_r:
+                            temp.append(right[j])
+                            j=j+1
+
+                elif min_value==right[j]: ##镜像同理
+                    temp.append(min_value)
+                    j=j+1
+                    if j==length_r:
+                        while i <length_l:
+                            temp.append(left[i])
+                            i=i+1
+
+            return temp
+
 
 
 
@@ -96,7 +129,11 @@ a=Sort()
 #a.Bubble_sort(a.unsolvelist)
 #a.Selection_sort(a.unsolvelist)
 #a.Insertion_sort(a.unsolvelist)
-a.Shell_sort(a.unsolvelist)
+#a.Shell_sort(a.unsolvelist)
+#print(a.Merge_sort(a.unsolvelist))
+a.Quick_sort(a.unsolvelist)
+
+
 
 
 
