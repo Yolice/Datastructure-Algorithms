@@ -78,8 +78,25 @@ class Sort:
 
 
 
-    def Quick_sort(self,list):
-        pass
+    def Quick_sort(self,list,left,right):
+        if left==right: ##在list为空时退出
+            return
+        cardinate_value=list[left] ##默认第一个数为基准数
+        start_value=left  ##左边开始的哨兵索引
+        last_value=right-1 ##右边开始的哨兵索引
+        while True: ##参考onenote快排规则
+            while last_value!=start_value and list[last_value] >= cardinate_value: ##先移动右边哨兵，当比基准数小时停下
+                last_value=last_value-1
+            while start_value!=last_value and list[start_value] <= cardinate_value: ##再移动左边哨兵，当比基准数大时停下
+                start_value=start_value+1
+            list[start_value],list[last_value]=list[last_value],list[start_value] ##哨兵对应的值交换
+            if start_value==last_value: ##如果哨兵碰头了，则和基准数交换，第一轮完成后，基准数排序到正确的位置
+                list[list.index(cardinate_value)],list[start_value]=list[start_value],list[list.index(cardinate_value)]
+                break
+        self.Quick_sort(list,left,start_value) ##对左边排序
+        self.Quick_sort(list,start_value+1,right) ##对右边排序
+
+        return list
 
 
 
@@ -131,9 +148,7 @@ a=Sort()
 #a.Insertion_sort(a.unsolvelist)
 #a.Shell_sort(a.unsolvelist)
 #print(a.Merge_sort(a.unsolvelist))
-a.Quick_sort(a.unsolvelist)
-
-
-
+#print(a.Quick_sort(a.unsolvelist,0,len(a.unsolvelist)))
+#所有排序测试通过！
 
 
