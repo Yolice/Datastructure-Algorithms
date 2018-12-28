@@ -79,7 +79,7 @@ class Graph:   ##无向图
             weight=Edges[edge_relationship]
             for i in edge_relationship.split('->'):
                 temporylist.append(int(i))  ##split分割后是str格式，这里我需要int格式
-            AdjacencyMatrix[temporylist[0]][temporylist[1]]=weight     ##如果利用无向图矩阵对称性质可以优化代码
+            AdjacencyMatrix[Vertexs.index(temporylist[0])][Vertexs.index(temporylist[1])]=weight     ##如果利用无向图矩阵对称性质可以优化代码
 
         return AdjacencyMatrix
 
@@ -95,7 +95,7 @@ class Graph:   ##无向图
             AdjacencyList.append(temporynode.Get_head())  ## 把控制链表的句柄head加入到领接表
             for key in Edges.keys():   ##把与当前顶点相关点边的顶点用insert方式插入结点
                 vertex_relationship=key.split('->')
-                start_value=int(vertex_relationship[0])  
+                start_value=int(vertex_relationship[0])
                 end_value=int(vertex_relationship[1])    ##split分割后默认是str格式，比较数值大小时候要用int转换
                 if vertex == start_value: ##只处理和当前顶点有关的边
                     temporynode.Insert(Vertexs.index(end_value),Edges[key]) ##领接表用index索引指向与之关联的顶点
