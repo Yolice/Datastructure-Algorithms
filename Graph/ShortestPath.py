@@ -37,9 +37,9 @@ class ShortestPath:
 
 
 
-    def Dijkstra(self,AdjacencyMatrix,Vertexs,index): ##index代表想要找哪个顶点最短路径的在矩阵中索引值
+    def Dijkstra(self,AdjacencyMatrix,index): ##index代表想要找哪个顶点最短路径的在矩阵中索引值
         distance=AdjacencyMatrix[index] ##哪个当作源点，就取哪一行
-        self.confirm_vertex.append(distance[index]) ##默认初始顶点
+        self.confirm_vertex.append(distance[index]) ##默认初始顶点的权值
         for i in range(len(distance)-2): ##n个点，只需要操作n-2次就行了
             temp=[]
             minimum_cost_weight=self.Find_Min(distance,self.confirm_vertex) ##找出当前代价最小的一条边
@@ -76,6 +76,6 @@ class ShortestPath:
 
 
 
-print(ShortestPath().Dijkstra(Matrix,Vertexs,0)) ##找出顶点0的最短路径信息
+print(ShortestPath().Dijkstra(Matrix,0)) ##找出顶点0的最短路径信息
 pprint.pprint(Matrix)
 
