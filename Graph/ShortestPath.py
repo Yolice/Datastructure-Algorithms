@@ -48,8 +48,8 @@ class ShortestPath:
                 if k!=INF and k!= 0:
                     temp.append(AdjacencyMatrix[minimum_cost_vertex].index(k)) ##代价最小边对应顶点的边的关系
             for j in temp: ##依次比较，如果在通过代价最小边对应顶点比直接去耗费代价小，那么更新对应的值(具体解释看onenote笔记最短源路径)
-                if AdjacencyMatrix[0][j] > AdjacencyMatrix[0][minimum_cost_vertex]+AdjacencyMatrix[minimum_cost_vertex][j]:
-                    distance[j]=AdjacencyMatrix[0][minimum_cost_vertex]+AdjacencyMatrix[minimum_cost_vertex][j]
+                if distance[j] > distance[minimum_cost_vertex]+AdjacencyMatrix[minimum_cost_vertex][j]:
+                    distance[j]=distance[minimum_cost_vertex]+AdjacencyMatrix[minimum_cost_vertex][j]
             self.confirm_vertex.append(distance[minimum_cost_vertex]) ##把已经找到点对应的权值加入数组，以后选最小权值跳过这个数组的值
 
 
@@ -76,6 +76,6 @@ class ShortestPath:
 
 
 
-#print(ShortestPath().Dijkstra(Matrix,Vertexs,0)) ##找出顶点0的最短路径信息
-#pprint.pprint(Matrix)
+print(ShortestPath().Dijkstra(Matrix,Vertexs,0)) ##找出顶点0的最短路径信息
+pprint.pprint(Matrix)
 
